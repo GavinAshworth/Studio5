@@ -10,6 +10,10 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     private int currentBrickCount;
     private int totalBrickCount;
 
+    [SerializeField] private int score;
+    [SerializeField] private ScoreCounterUI scoreCounter;
+
+
     private void OnEnable()
     {
         if (brickDestroyEffect == null)
@@ -56,6 +60,10 @@ public class GameManager : SingletonMonoBehavior<GameManager>
         currentBrickCount--;
         Debug.Log($"Destroyed Brick at {position}, {currentBrickCount}/{totalBrickCount} remaining");
         if (currentBrickCount == 0) SceneHandler.Instance.LoadNextScene();
+
+        // Add counter for score
+        score++;
+        scoreCounter.UpdateScore(score);
     }
 
     public void KillBall()
